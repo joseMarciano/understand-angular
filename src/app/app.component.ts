@@ -4,6 +4,13 @@ import {UserComponent} from "./user/user.component";
 import {DUMMY_USERS} from "./dummy-users";
 import {TasksComponent} from "./tasks/tasks.component";
 
+type User = {
+  id: string,
+  name: string,
+  avatar: string,
+}
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,14 +20,10 @@ import {TasksComponent} from "./tasks/tasks.component";
 })
 export class AppComponent {
   protected readonly USERS = DUMMY_USERS;
-  currentUserId = this.USERS[0].id;
+  currentUser = this.USERS[0];
 
 
-  get currentUser() {
-    return this.USERS.find(user => user.id === this.currentUserId);
-  }
-
-  onSelectUser(id: string) {
-    this.currentUserId = id
+  onSelectUser(user: User) {
+    this.currentUser = user;
   }
 }

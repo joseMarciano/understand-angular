@@ -1,5 +1,11 @@
 import {Component, computed, input, output} from '@angular/core';
 
+type User = {
+  id: string,
+  name: string,
+  avatar: string,
+}
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -7,17 +13,11 @@ import {Component, computed, input, output} from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  // @Input({required: true}) avatar!: string;
-  // @Input({required: true}) name!: string;
-  // @Output() select = new EventEmitter();
-  id = input.required<string>();
-  avatar = input.required<string>(); // not required input can be input<string>();
-  name = input.required<string>();
-  select = output<string>()
-
-  imagePath = computed(() => `users/${this.avatar()}`);
+  user = input.required<User>()
+  select = output<User>()
+  imagePath = computed(() => `users/${this.user().avatar}`);
 
   onSelectUser() {
-    this.select.emit(this.id())
+    this.select.emit(this.user())
   }
 }

@@ -1,5 +1,12 @@
 import {Component, input} from '@angular/core';
 
+type User = {
+  id: string,
+  name: string,
+  avatar: string,
+}
+
+
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -8,5 +15,5 @@ import {Component, input} from '@angular/core';
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
-  currentUserName = input<string>();
+  currentUser = input<User>();
 }
