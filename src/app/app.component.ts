@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderComponent} from "./header/header.component";
 import {UserComponent} from "./user/user.component";
 import {DUMMY_USERS} from "./dummy-users";
@@ -12,4 +12,8 @@ import {DUMMY_USERS} from "./dummy-users";
 })
 export class AppComponent {
   protected readonly USERS = DUMMY_USERS
+
+  onSelectUser(id: string) {
+    console.log(id);
+  }
 }
