@@ -1,5 +1,4 @@
-import {Component, computed, signal} from '@angular/core';
-import {DUMMY_USERS} from "../dummy-users";
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -8,6 +7,10 @@ import {DUMMY_USERS} from "../dummy-users";
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  selectedUser = signal(DUMMY_USERS[0]);
-  imagePath = computed(() => `/users/${this.selectedUser().avatar}`)
+  @Input({required: true}) avatar!: string;
+  @Input({required: true}) name!: string;
+
+  get imagePath() {
+    return `users/${this.avatar}`;
+  }
 }
