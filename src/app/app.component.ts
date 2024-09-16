@@ -20,8 +20,7 @@ type User = {
 })
 export class AppComponent {
   protected readonly USERS = DUMMY_USERS;
-  currentUser = this.USERS[0];
-
+  currentUser ?: User;
 
   onSelectUser(user: User) {
     this.currentUser = user;
