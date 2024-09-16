@@ -1,13 +1,5 @@
-import {Component, input, Input} from '@angular/core';
-
-
-type Task = {
-  id: string;
-  userId: string;
-  name: string;
-  summary: string;
-  dueDate: string;
-}
+import {Component, input} from '@angular/core';
+import {type Task} from "./task.model";
 
 
 @Component({
@@ -19,7 +11,6 @@ type Task = {
 })
 export class TaskComponent {
   task = input.required<Task>();
-
 
 
   formatDate(stringDate: string): string {

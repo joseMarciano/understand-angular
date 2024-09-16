@@ -1,12 +1,7 @@
 import {Component, input} from '@angular/core';
 import {TaskComponent} from "./task/task.component";
-
-type User = {
-  id: string,
-  name: string,
-  avatar: string,
-}
-
+import {type User} from "../user/user.model";
+import {Task} from "./task/task.model";
 
 @Component({
   selector: 'app-tasks',
@@ -19,7 +14,7 @@ type User = {
 })
 export class TasksComponent {
   currentUser = input<User>();
-  tasks = [
+  tasks: Task[] =  [
     {
       id: 't1',
       userId: 'u1',
@@ -43,9 +38,9 @@ export class TasksComponent {
         'Prepare and describe an issue template which will help with project management',
       dueDate: '2024-06-15',
     },
-  ]
+  ];
 
-  get selectedUserTasks()  {
+  get selectedUserTasks() {
     return this.tasks.filter(task => task.userId === this.currentUser()?.id);
   }
 }
