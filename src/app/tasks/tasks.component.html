@@ -1,8 +1,12 @@
 <section id="tasks">
+  @if(isDialogOpen) {
+    <app-new-task (onClose)="onCancelAddTask()"/>
+  }
+
   <header>
     <h2>{{ currentUser()?.name }}'s Tasks</h2>
     <menu>
-      <button>Add task</button>
+      <button (click)="onStartAddTask()">Add task</button>
     </menu>
   </header>
 

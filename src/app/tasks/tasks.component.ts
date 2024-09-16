@@ -2,18 +2,21 @@ import {Component, input} from '@angular/core';
 import {TaskComponent} from "./task/task.component";
 import {type User} from "../user/user.model";
 import {Task} from "./task/task.model";
+import {NewTaskComponent} from "./new-task/new-task.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
   imports: [
-    TaskComponent
+    TaskComponent,
+    NewTaskComponent
   ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
   currentUser = input<User>();
+  isDialogOpen = false;
   tasks: Task[] = [
     {
       id: 't1',
@@ -48,5 +51,13 @@ export class TasksComponent {
     const filterById = (task: Task) => task.id !== aTask.id
     this.tasks = this.tasks
       .filter(filterById);
+  }
+
+  onStartAddTask() {
+    this.isDialogOpen = true;
+  }
+
+  onCancelAddTask() {
+    this.isDialogOpen = false;
   }
 }
