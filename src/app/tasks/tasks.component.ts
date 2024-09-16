@@ -14,7 +14,7 @@ import {Task} from "./task/task.model";
 })
 export class TasksComponent {
   currentUser = input<User>();
-  tasks: Task[] =  [
+  tasks: Task[] = [
     {
       id: 't1',
       userId: 'u1',
@@ -42,5 +42,11 @@ export class TasksComponent {
 
   get selectedUserTasks() {
     return this.tasks.filter(task => task.userId === this.currentUser()?.id);
+  }
+
+  onCompleteTask(aTask: Task) {
+    const filterById = (task: Task) => task.id !== aTask.id
+    this.tasks = this.tasks
+      .filter(filterById);
   }
 }
