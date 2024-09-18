@@ -1,6 +1,6 @@
 <section id="tasks">
   @if(isDialogOpen) {
-    <app-new-task (onClose)="onCancelAddTask()"/>
+    <app-new-task (onClose)="onCancelAddTask()" (onSave)="onTaskSave($event)"/>
   }
 
   <header>

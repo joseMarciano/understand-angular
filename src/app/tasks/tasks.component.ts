@@ -3,6 +3,7 @@ import {TaskComponent} from "./task/task.component";
 import {type User} from "../user/user.model";
 import {Task} from "./task/task.model";
 import {NewTaskComponent} from "./new-task/new-task.component";
+import {type NewTaskCreated} from "./new-task/new-task.model";
 
 @Component({
   selector: 'app-tasks',
@@ -59,5 +60,16 @@ export class TasksComponent {
 
   onCancelAddTask() {
     this.isDialogOpen = false;
+  }
+
+  onTaskSave($event: NewTaskCreated) {
+    this.tasks.unshift({
+      id: new Date().toISOString(),
+      userId: this.currentUser()?.id || '',
+      dueDate: $event.dueDate,
+      summary: $event.summary,
+      title: $event.title,
+    })
+    this.onCancelAddTask();
   }
 }
