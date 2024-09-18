@@ -4,6 +4,7 @@ import {type User} from "../user/user.model";
 import {Task} from "./task/task.model";
 import {NewTaskComponent} from "./new-task/new-task.component";
 import {type NewTaskCreated} from "./new-task/new-task.model";
+import {TasksService} from "./tasks.service";
 
 @Component({
   selector: 'app-tasks',
@@ -16,42 +17,19 @@ import {type NewTaskCreated} from "./new-task/new-task.model";
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
+
   currentUser = input<User>();
   isDialogOpen = false;
-  tasks: Task[] = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ];
+
+
+  constructor(private readonly tasksService: TasksService) {}
 
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.currentUser()?.id);
+    return this.tasksService.getUserTasks(this.currentUser()?.id!);
   }
 
   onCompleteTask(aTask: Task) {
-    const filterById = (task: Task) => task.id !== aTask.id
-    this.tasks = this.tasks
-      .filter(filterById);
+    this.tasksService.completeTask(aTask.id)
   }
 
   onStartAddTask() {
@@ -63,13 +41,7 @@ export class TasksComponent {
   }
 
   onTaskSave($event: NewTaskCreated) {
-    this.tasks.unshift({
-      id: new Date().toISOString(),
-      userId: this.currentUser()?.id || '',
-      dueDate: $event.dueDate,
-      summary: $event.summary,
-      title: $event.title,
-    })
+    this.tasksService.addTask($event, this.currentUser()?.id!)
     this.onCancelAddTask();
   }
 }
