@@ -1,6 +1,6 @@
-import {Component, output, signal} from '@angular/core';
+import {Component, inject, input, output, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {NewTaskCreated} from "./new-task.model";
+import {TasksService} from "../tasks.service";
 
 @Component({
   selector: 'app-new-task',
@@ -12,8 +12,10 @@ import {NewTaskCreated} from "./new-task.model";
   styleUrl: './new-task.component.css'
 })
 export class NewTaskComponent {
+  private readonly tasksService = inject(TasksService)
+
   onClose = output<void>();
-  onSave = output<NewTaskCreated>();
+  userId = input.required<string>();
 
   title = signal("");
   summary = signal("");
@@ -24,17 +26,12 @@ export class NewTaskComponent {
   }
 
   onTaskSave() {
-    this.onSave.emit({
+    this.tasksService.addTask({
       title: this.title(),
       summary: this.summary(),
       dueDate: this.dueDate(),
-    })
-  }
+    }, this.userId());
 
-
-  private clearModal() {
-    this.title.set("")
-    this.summary.set("")
-    this.dueDate.set("")
+    this.onModalClose();
   }
 }
