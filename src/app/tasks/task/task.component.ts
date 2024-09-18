@@ -1,13 +1,15 @@
 import {Component, input, output} from '@angular/core';
 import {type Task} from "./task.model";
 import {CardComponent} from "../../shared/card/card.component";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [
-    CardComponent
+    CardComponent,
+    DatePipe
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
@@ -15,11 +17,6 @@ import {CardComponent} from "../../shared/card/card.component";
 export class TaskComponent {
   task = input.required<Task>();
   onComplete = output<Task>();
-
-
-  formatDate(stringDate: string): string {
-    return new Intl.DateTimeFormat("pt-br").format(new Date(stringDate))
-  }
 
   onCompleteTask(aTask: Task) {
     this.onComplete.emit(aTask)
