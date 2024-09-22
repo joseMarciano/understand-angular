@@ -18,6 +18,4 @@ import {TicketsComponent} from "./dashboard/tickets/tickets.component";
   ]
 })
 export class AppComponent {
-
-  protected readonly DashboardItemComponent = DashboardItemComponent;
 }
