@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 enum Status {
   ONLINE = 'online',
@@ -13,11 +13,17 @@ enum Status {
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css'
 })
-export class ServerStatusComponent implements OnInit {
+export class ServerStatusComponent implements OnInit, OnDestroy {
+  private interval!: ReturnType<typeof setTimeout>;
+
   currentStatus: Status = Status.ONLINE;
 
   ngOnInit() {
-    setInterval(this.updateCurrentStatus, 5000)
+    this.interval = setInterval(this.updateCurrentStatus, 5000)
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.interval)
   }
 
   private readonly updateCurrentStatus = () => {
