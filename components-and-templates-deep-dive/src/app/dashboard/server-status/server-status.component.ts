@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnDestroy, OnInit} from '@angular/core';
 
 enum Status {
   ONLINE = 'online',
@@ -13,17 +13,17 @@ enum Status {
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css'
 })
-export class ServerStatusComponent implements OnInit, OnDestroy {
-  private interval!: ReturnType<typeof setTimeout>;
+export class ServerStatusComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
 
   currentStatus: Status = Status.ONLINE;
 
   ngOnInit() {
-    this.interval = setInterval(this.updateCurrentStatus, 5000)
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.interval)
+    const interval = setInterval(this.updateCurrentStatus, 5000);
+    
+    this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    });
   }
 
   private readonly updateCurrentStatus = () => {
