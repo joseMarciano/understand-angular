@@ -1,9 +1,9 @@
-import {Component, ElementRef, viewChild} from '@angular/core';
+import {Component, ElementRef, output, viewChild} from '@angular/core';
 import {ButtonComponent} from "../../../shared/button/button.component";
 import {ControlComponent} from "../../../shared/control/control.component";
 import {FormsModule} from "@angular/forms";
+import {NewTicked} from "../tickets.model";
 
-type Task = { title: string, request: string }
 
 @Component({
   selector: 'app-new-ticket',
@@ -19,8 +19,9 @@ type Task = { title: string, request: string }
 export class NewTicketComponent {
   private currentForm = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
-  onSubmit(task: Task) {
-    console.log(task);
-    this.currentForm().nativeElement.reset();
+  tickedAdded = output<NewTicked>();
+
+  onSubmit(task: NewTicked) {
+    this.tickedAdded.emit(task);
   }
 }
