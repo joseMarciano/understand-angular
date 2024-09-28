@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NewTicketComponent} from "./new-ticket/new-ticket.component";
-import {NewTicked, TicketStatus, Ticket} from "./tickets.model";
+import {NewTicked, Ticket, TicketStatus} from "./tickets.model";
 import {TicketComponent} from "./ticket/ticket.component";
 
 @Component({
@@ -23,5 +23,18 @@ export class TicketsComponent {
       title: newTask.title,
       request: newTask.request,
     });
+  }
+
+  onTickedClose(id: string) {
+    this.tickets = this.tickets.map(ticket => {
+      if(ticket.id === id) {
+        return {
+          ...ticket,
+          status: TicketStatus.CLOSED,
+        };
+      }
+
+      return ticket;
+    })
   }
 }
