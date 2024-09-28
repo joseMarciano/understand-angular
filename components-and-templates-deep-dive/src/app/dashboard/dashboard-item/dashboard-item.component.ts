@@ -8,7 +8,10 @@ import {NgOptimizedImage} from "@angular/common";
     NgOptimizedImage
   ],
   templateUrl: './dashboard-item.component.html',
-  styleUrl: './dashboard-item.component.css'
+  styleUrl: './dashboard-item.component.css',
+  // host: { // in this case this approach will not work because of default encapsulation is ViewEncapsulation.Emulated
+  //   class: 'dashboard-item'
+  // }
 })
 export class DashboardItemComponent {
   image = input.required<{ src: string, alt: string }>();
