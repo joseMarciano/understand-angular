@@ -20,7 +20,7 @@ export class ServerStatusComponent implements OnInit {
 
   ngOnInit() {
     const interval = setInterval(this.updateCurrentStatus, 5000);
-    
+
     this.destroyRef.onDestroy(() => {
       clearInterval(interval);
     });
