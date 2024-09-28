@@ -9,9 +9,14 @@ import {Component, input, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'control', // add the class to app-control whenever is being used ex: <app-control class="control"/>
+    '(click)': 'onClick()'
   }
 })
 export class ControlComponent {
   label = input.required<string>()
 
+
+  onClick() {
+    console.log('clicked');
+  }
 }
